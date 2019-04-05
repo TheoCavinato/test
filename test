@@ -1,0 +1,22 @@
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import pandas as pd
+import csv
+
+
+with open('C:/Users/THEO/Desktop/Biologie-IV/Programmation/data/sex.csv', 'r') as csvSex:
+    reader = csv.reader(csvSex)
+    dfSex = pd.DataFrame()
+    for row in reader:
+        dfSex = dfSex.append({'id':row[0], 'sex':row[1]}, ignore_index=True)
+        
+with open('C:/Users/THEO/Desktop/Biologie-IV/Programmation/data/colaus1.focus.raw.csv', 'r') as csvData:
+    reader = csv.reader(csvData)
+    dfData = pd.DataFrame()
+    i=0
+    for row in reader:
+        dfData= dfData.append({'id':i, 'data':row}, ignore_index=True)
+        i=i+1
+        
+dfFinal = dfData.join(dfSex, lsuffix='_caller', rsuffix='_other')
